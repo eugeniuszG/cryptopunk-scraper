@@ -131,7 +131,7 @@ async function downloadImage (url, path) {
         //let startFromCrash = partialUrlsArray.indexOf('/cryptopunks/view/1721?filters=%24Punk%2520Type%242%3Atrue')
 
         const asyncLoop = async _ => {
-            for (let index = 1000; index < 2000; index++) {
+            for (let index = 2000; index < 3000; index++) {
                 let start = Date.now();
 
                 let itemDetails = {};
