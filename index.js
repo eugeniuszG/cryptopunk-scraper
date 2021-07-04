@@ -71,7 +71,7 @@ async function downloadImage (url, path) {
 
         // driver = await new Builder().forBrowser('firefox').setFirefoxOptions(options).build();
         driver = await new Builder().forBrowser('firefox').build();
-        await driver.get(urls.male);
+        await driver.get(urls.female);
         await sleep(3000);
         let htmlBody = await driver.getPageSource();
 
@@ -131,7 +131,7 @@ async function downloadImage (url, path) {
         //let startFromCrash = partialUrlsArray.indexOf('/cryptopunks/view/1721?filters=%24Punk%2520Type%242%3Atrue')
 
         const asyncLoop = async _ => {
-            for (let index = 2000; index < partialUrlsArray.length; index++) {
+            for (let index = 0; index < 1000; index++) {
                 let start = Date.now();
 
                 let itemDetails = {};
