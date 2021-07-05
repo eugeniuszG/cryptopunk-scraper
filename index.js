@@ -71,7 +71,7 @@ async function downloadImage (url, path) {
 
         // driver = await new Builder().forBrowser('firefox').setFirefoxOptions(options).build();
         driver = await new Builder().forBrowser('firefox').build();
-        await driver.get(urls.female);
+        await driver.get(urls.aliens);
         await sleep(3000);
         let htmlBody = await driver.getPageSource();
 
@@ -120,7 +120,7 @@ async function downloadImage (url, path) {
             await getAllItems();
         }
         else {
-            await getItems()
+            partialUrlsArray = await getItems($)
         }
 
 
@@ -131,7 +131,7 @@ async function downloadImage (url, path) {
         //let startFromCrash = partialUrlsArray.indexOf('/cryptopunks/view/1721?filters=%24Punk%2520Type%242%3Atrue')
 
         const asyncLoop = async _ => {
-            for (let index = 3000; index < partialUrlsArray.length; index++) {
+            for (let index = 0; index < partialUrlsArray.length; index++) {
                 let start = Date.now();
 
                 let itemDetails = {};
@@ -198,20 +198,21 @@ async function downloadImage (url, path) {
                 image$ = cheerio.load(htmlWithImage);
                 let imgUrl = image$('div.AssetMediareact__DivContainer-sc-1vbfbdi-0:nth-child(1) > div:nth-child(1) > div:nth-child(1) > img:nth-child(1)').attr('src');
                 
-                
-                fs.mkdir(`./data/female/${itemDetails.rarityRank}ID:${itemDetails.id}`, function(err) {
+                let foderName = `${itemDetails.rarityRank}_ID#${itemDetails.id}`
+
+                fs.mkdir(`./data/female/${foderName}`, function(err) {
                     if (err) {
                     console.log(err)
                     } else {
-                    console.log(`New directory with name: ${itemDetails.rarityRank}ID:${itemDetails.id} successfully created.`)
+                    console.log(`New directory with name: ${foderName} successfully created.`)
                     }
                 })
                 
-                const path_dir = path.resolve(__dirname, `./data/female/${itemDetails.rarityRank}ID:${itemDetails.id}`, `${itemDetails.rarityRank}.png`)
+                const path_dir = path.resolve(__dirname, `./data/female/${foderName}`, `${itemDetails.rarityRank}.png`)
                 await downloadImage(imgUrl, path_dir)
 
                 
-                fs.writeFile(`./data/female/${itemDetails.rarityRank}ID:${itemDetails.id}/${itemDetails.rarityRank}.json`, JSON.stringify(itemDetails), (err) => {
+                fs.writeFile(`./data/female/${foderName}/${itemDetails.rarityRank}.json`, JSON.stringify(itemDetails), (err) => {
                     if (err) {
                         throw err;
                     }
